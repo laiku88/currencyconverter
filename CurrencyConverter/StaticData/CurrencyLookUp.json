@@ -1,0 +1,70 @@
+[
+  {
+    "currencyCode": "USD",
+    "detail": "US dollar"
+  },
+  {
+    "currencyCode": "AUD",
+    "detail": "Australian dollar"
+  },
+  {
+    "currencyCode": "BRL",
+    "detail": "Brazilian dollar"
+  },
+  {
+    "currencyCode": "CAD",
+    "detail": "Canadian dollar"
+  },
+  {
+    "currencyCode": "CHF",
+    "detail": "Swiss franc"
+  },
+  {
+    "currencyCode": "CNY",
+    "detail": "Chinese yuan"
+  },
+  {
+    "currencyCode": "DKK",
+    "detail": "Danish krone"
+  },
+  {
+    "currencyCode": "EUR",
+    "detail": "Euro"
+  },
+  {
+    "currencyCode": "GBP",
+    "detail": "British pound"
+  },
+  {
+    "currencyCode": "INR",
+    "detail": "Indian rupee"
+  },
+  {
+    "currencyCode": "JPY",
+    "detail": "Japanese yen"
+  },
+  {
+    "currencyCode": "KRW",
+    "detail": "Korean won"
+  },
+  {
+    "currencyCode": "NOK",
+    "detail": "Norwegian krone"
+  },
+  {
+    "currencyCode": "NZD",
+    "detail": "New Zealand dollar"
+  },
+  {
+    "currencyCode": "RUB",
+    "detail": "Russian ruble"
+  },
+  {
+    "currencyCode": "SEK",
+    "detail": "Swedish krona"
+  },
+  {
+    "currencyCode": "TWD",
+    "detail": "Swedish Taiwan dollar"
+  }
+]

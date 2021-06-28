@@ -1,31 +1,82 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Currency Converter";
 }
+@model Dictionary<string, string>
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div style="margin:10px 0" class="row">
+    <div class="p-3">
+        <h2>Currency Converter</h2>
+    </div>
+
+    <alert class="alert alert-info col-12">Choose the currencies you wish to convert and the amount you wish to convert</alert>
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <div class="col-6">
+        <label class="col-form-label">Currency</label>
+        @Html.DropDownList("currencyCode1",new SelectList(Model, "Key", "Value"),new {@class="form-control"})
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="col-6">
+        <label class="col-form-label">Amount</label>
+        <input type="number" step="0.1" class="form-control inputCurrencyAmount" value="" id="currencyAmount1"/>
     </div>
 </div>
+<div class="row">
+    <div class="col-6">
+        <label class="col-form-label">Currency</label>
+        @Html.DropDownList("currencyCode2", new SelectList(Model, "Key", "Value"), new { @class = "form-control" })
+    </div>
+    <div class="col-6">
+        <label class="col-form-label">Amount to calculate</label>
+        <input type="number" step="0.1" class="form-control inputCurrencyAmount" id="currencyAmount2"/>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12" style="margin-top:10px">
+        <button class="col-12 btn btn-primary" id="btnSubmit">Calculate</button>
+    </div>
+   
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        //initial setup of currencyCodes
+        $('#currencyAmount1').val(1.00);
+        $('#currencyCode1').val('USD');
+        $('#currencyCode2').val('GBP');
+        var currencyAmountCalculated = GetCurrencyAmount2('USD', 'GBP', 1.00);
+
+        currencyAmountCalculated.done(function(data) {
+            $('#currencyAmount2').val(data.currencyAmount2);
+        }).fail(function(xhr) {
+            alert("An error occurred: " + xhr.responseText);
+        });
+
+        $('#btnSubmit').on('click',
+            function() {
+                const currencyCode1 = $('#currencyCode1').val();
+                const currencyCode2 = $('#currencyCode2').val();
+                const currencyAmount1 = $('#currencyAmount1').val();
+                currencyAmountCalculated = GetCurrencyAmount2(currencyCode1, currencyCode2, currencyAmount1);
+                currencyAmountCalculated.done(function(data) {
+                    $('#currencyAmount2').val(data.currencyAmount2.toFixed(2));
+                }).fail(function(xhr) {
+                    alert("An error occurred: " + xhr.responseText);
+                });
+            })
+
+        function GetCurrencyAmount2(currencyCode1, currencyCode2, currencyAmount1) {
+            return $.ajax({
+                url: '@Url.Action("GetCurrencyConversion")',
+                type: "GET",
+                dataType: "json",
+                data: {
+                    currencyCode1: currencyCode1,
+                    currencyCode2: currencyCode2,
+                    currencyAmount1: currencyAmount1
+                }
+
+            });
+        }
+    </script>
+}
